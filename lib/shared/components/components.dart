@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/modules/web_view/web_view_screen.dart';
 import 'package:flutter_project/shared/cubit/cubit.dart';
 
 Widget defaultbutton({
@@ -33,6 +34,7 @@ defaultformfield({
   IconData? suffix,
   VoidCallback? suffixpressed,
   VoidCallback? ontap,
+  FormFieldValidator<String>? onChange,
 }) =>
     TextFormField(
         controller: textEditingController,
@@ -40,9 +42,7 @@ defaultformfield({
         onFieldSubmitted: (String value) {
           print(value);
         },
-        onChanged: (String value) {
-          print(value);
-        },
+        onChanged: onChange,
         onTap: ontap,
         obscureText: ispassword,
         decoration: InputDecoration(
@@ -144,48 +144,64 @@ Widget builderTasks({required List<Map> tasks}) => ConditionalBuilder(
           ),
         ));
 
-Widget buildArticleItem(article) => Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Row(
-        children: [
-          Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                  image: NetworkImage("${article['urlToImage']}"),
-                  fit: BoxFit.cover),
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Container(
+Widget buildArticleItem(article, context) => InkWell(
+      onTap: () {
+        navigateTo(context, WebViewScreen(url: article['url']));
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            Container(
+              width: 120,
               height: 120,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      '${article['title']}',
-                      style: TextStyle(color: Colors.black),
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Text(
-                    '${article['publishedAt']}',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    image: NetworkImage("${article['urlToImage']}"),
+                    fit: BoxFit.cover),
               ),
             ),
-          ),
-        ],
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Container(
+                height: 120,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '${article['title']}',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Text(
+                      '${article['publishedAt']}',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+Widget articleBuilder(list, {isSearch = false}) => ConditionalBuilder(
+      condition: list.length > 0,
+      builder: (context) => ListView.separated(
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (context, index) => buildArticleItem(list[index], context),
+        separatorBuilder: (context, index) => myDivider(),
+        itemCount: 10,
+      ),
+      fallback: (context) =>
+          isSearch ? Container() : Center(child: CircularProgressIndicator()),
     );
 
 Widget myDivider() => Padding(
@@ -196,3 +212,5 @@ Widget myDivider() => Padding(
         height: 1,
       ),
     );
+void navigateTo(context, Widget) =>
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Widget));

@@ -6,6 +6,7 @@ import 'package:flutter_project/modules/business/business_screen.dart';
 import 'package:flutter_project/modules/science/science_screen.dart';
 import 'package:flutter_project/modules/settings/settings_screen.dart';
 import 'package:flutter_project/modules/sports/sports_screen.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../shared/network/remote/dio_helper.dart';
 
@@ -42,12 +43,17 @@ class NewsCubit extends Cubit<NewsStates> {
   List<dynamic> business = [];
   void getBusiness() {
     emit(NewsGetBusinessLoadingState());
-    DioHelper.getData(url: 'v2/top-headlines', query: {
-      'country': 'us',
-      'apiKey': '36479e94e45240c4b564463b32061aff'
-    }).then((value) {
-      // print(value.data['articles'][0]['title']);
+    DioHelper.getData(
+      url: 'v2/top-headlines',
+      query: {
+        'country': 'us',
+        'apiKey': '36479e94e45240c4b564463b32061aff',
+      },
+    ).then((value) {
+      //print(value.data['articles'][0]['title']);
       business = value.data['articles'];
+      // print(business[0]['title']);
+
       emit(NewsGetBusinessSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -86,6 +92,29 @@ class NewsCubit extends Cubit<NewsStates> {
       emit(NewsGetScienceErrorState(error.toString()));
     });
   }
+
+  List<dynamic> search = [];
+  void getSearch(String value) {
+    emit(NewsGetSearchLoadingState());
+    DioHelper.getData(url: 'v2/everything', query: {
+      'q': '$value',
+      'apiKey': '36479e94e45240c4b564463b32061aff'
+    }).then((value) {
+      // print(value.data['articles'][0]['title']);
+      search = value.data['articles'];
+      emit(NewsGetSearchSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(NewsGetSearchErrorState(error.toString()));
+    });
+  }
+  //
+  // late final WebViewController _controller;
+  // void goTo({
+  //   String? url,
+  // }) {
+  //
+  // }
 }
 
 // base url : https://rickandmortyapi.com/api/character

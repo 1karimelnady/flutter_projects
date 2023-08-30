@@ -4,6 +4,7 @@ import 'package:flutter_project/modules/archived_tasks/archived_tasks_screen.dar
 import 'package:flutter_project/modules/done_tasks/done_tasks_screen.dart';
 import 'package:flutter_project/modules/new_tasks/new_tasks_screen.dart';
 import 'package:flutter_project/shared/cubit/states.dart';
+import 'package:flutter_project/shared/network/local/cache_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -107,5 +108,17 @@ class AppCubit extends Cubit<AppStates> {
     isopen = isshow;
     icon = fabicon;
     emit(AppBottomSheetState());
+  }
+
+  bool isDark = false;
+
+  void changeMode({bool? fromshared}) {
+    if (fromshared != null) {
+      isDark = fromshared;
+    } else {
+      isDark = !isDark;
+      CacheHelper.putData(key: 'isDark', value: isDark)
+          .then((value) => {emit(AppChangeModeState())});
+    }
   }
 }
