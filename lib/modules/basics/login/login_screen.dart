@@ -43,6 +43,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 10.0,
                   ),
                   defaultformfield(
+                      validator: (value){
+                        if(value!.isEmpty){
+                          return "Email not be empty";
+                        }
+                      },
                       textEditingController: emailcontroller,
                       textInputType: TextInputType.emailAddress,
                       label: "Password",
@@ -51,6 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 10.0,
                   ),
                   defaultformfield(
+                      validator: (value){
+                        if(value!.isEmpty){
+                          return "Password not be empty";
+                        }
+                      },
                       ispassword: true,
                       suffix: ispassword ? Icons.visibility : Icons.visibility,
                       suffixpressed: () {

@@ -52,6 +52,11 @@ class HomeLayout extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   defaultformfield(
+                                    validator: (value){
+                                      if(value!.isEmpty){
+                                        return "Search not be empty";
+                                      }
+                                    },
                                     textEditingController: titleController,
                                     textInputType: TextInputType.text,
                                     label: 'Task Title',
@@ -77,6 +82,11 @@ class HomeLayout extends StatelessWidget {
                                     height: 15.0,
                                   ),
                                   defaultformfield(
+                                    validator: (value){
+                                      if(value!.isEmpty){
+                                        return "Date not be empty";
+                                      }
+                                    },
                                     ontap: () {
                                       showDatePicker(
                                         context: context,

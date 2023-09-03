@@ -1,30 +1,38 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/modules/web_view/web_view_screen.dart';
 import 'package:flutter_project/shared/cubit/cubit.dart';
+
+import '../../modules/news_app/web_view/web_view_screen.dart';
+import '../../modules/shop_app/shop_app_login/shop_login_screen.dart';
+import '../styles/colors/colors.dart';
 
 Widget defaultbutton({
   double width = double.infinity,
-  Color background = Colors.red,
+  Color background = Colors.blue,
+  bool isUpperCase = true,
+  double radius = 3.0,
   required VoidCallback function,
   required String text,
 }) =>
     Container(
       width: width,
-      padding: EdgeInsetsDirectional.all(8.0),
-      color: background,
+      height: 60.0,
       child: MaterialButton(
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
+        onPressed: function,
+        child: Text(
+          isUpperCase ? text.toUpperCase() : text,
+          style: TextStyle(
+            color: Colors.white,
           ),
-          onPressed: function),
+        ),
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(
+          radius,
+        ),
+        color: background,
+      ),
     );
-
 defaultformfield({
   required TextEditingController textEditingController,
   required TextInputType textInputType,
@@ -35,10 +43,12 @@ defaultformfield({
   VoidCallback? suffixpressed,
   VoidCallback? ontap,
   FormFieldValidator<String>? onChange,
+  required FormFieldValidator<String>? validator,
 }) =>
     TextFormField(
         controller: textEditingController,
         keyboardType: textInputType,
+        validator: validator,
         onFieldSubmitted: (String value) {
           print(value);
         },
@@ -214,3 +224,25 @@ Widget myDivider() => Padding(
     );
 void navigateTo(context, Widget) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => Widget));
+
+void navigateFinish(context, Widget) => Navigator.pushAndRemoveUntil(
+      context, MaterialPageRoute(
+      builder: (context) => Widget),
+      (Route<dynamic> route)=>false
+);
+
+Widget defalutTextButton({
+  String ?context,
+  required String text,
+  required VoidCallback function,
+})=>TextButton(
+  onPressed: function,
+  child: Text(
+    '$text',
+    style: TextStyle(
+        color: primarycolor,
+        fontWeight: FontWeight.bold,
+        fontSize: 18
+    ),
+  ),
+);

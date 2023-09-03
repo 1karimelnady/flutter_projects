@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/layouts/news_app/cubit/cubit.dart';
 import 'package:flutter_project/layouts/news_app/cubit/states.dart';
-import 'package:flutter_project/modules/search/search_screen.dart';
 import 'package:flutter_project/shared/components/components.dart';
 import 'package:flutter_project/shared/cubit/cubit.dart';
-import 'package:flutter_project/shared/network/remote/dio_helper.dart';
+
+import '../../modules/news_app/search/search_screen.dart';
 
 class NewsLayout extends StatelessWidget {
   const NewsLayout({super.key});

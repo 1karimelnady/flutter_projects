@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_project/modules/bmi_result/bmi_result_screen.dart';
+
+import '../bmi_result/bmi_result_screen.dart';
 
 class BMIScreen extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _BMIScreenState extends State<BMIScreen> {
     // TODO: implement initState
     super.initState();
   }
+
   bool ismale = true;
   double height = 150;
   int age = 20;
@@ -23,24 +25,20 @@ class _BMIScreenState extends State<BMIScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'BMI Calculator'
-        ),
+        title: Text('BMI Calculator'),
       ),
       body: Column(
-        children:
-        [
+        children: [
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                  [
+                  children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           setState(() {
                             ismale = true;
                           });
@@ -48,26 +46,26 @@ class _BMIScreenState extends State<BMIScreen> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadiusDirectional.circular(5.0),
-                            color: ismale ? Colors.blue : Colors.grey[300]
-                          ),
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(5.0),
+                              color: ismale ? Colors.blue : Colors.grey[300]),
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Column(
-                              children:
-                              [
+                              children: [
                                 Image(
                                   image: AssetImage("assets/images/images.png"),
                                   width: 90.0,
-                                    height: 90.0,
+                                  height: 90.0,
                                 ),
-                                SizedBox(height: 5.0,),
+                                SizedBox(
+                                  height: 5.0,
+                                ),
                                 Text(
-                                    'MALE',
+                                  'MALE',
                                   style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25.0
-                                  ),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25.0),
                                 ),
                               ],
                             ),
@@ -75,10 +73,12 @@ class _BMIScreenState extends State<BMIScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20.0,),
+                    SizedBox(
+                      width: 20.0,
+                    ),
                     Expanded(
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           setState(() {
                             ismale = false;
                           });
@@ -86,26 +86,27 @@ class _BMIScreenState extends State<BMIScreen> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadiusDirectional.circular(5.0),
-                              color: !ismale ? Colors.blue : Colors.grey[300]
-                          ),
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(5.0),
+                              color: !ismale ? Colors.blue : Colors.grey[300]),
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Column(
-                              children:
-                              [
+                              children: [
                                 Image(
-                                  image: AssetImage("assets/images/images (1).png"),
+                                  image: AssetImage(
+                                      "assets/images/images (1).png"),
                                   width: 90.0,
                                   height: 90.0,
                                 ),
-                                SizedBox(height: 5.0,),
+                                SizedBox(
+                                  height: 5.0,
+                                ),
                                 Text(
                                   'FEMALE',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                    fontSize: 25.0
-                                  ),
+                                      fontSize: 25.0),
                                 ),
                               ],
                             ),
@@ -123,39 +124,30 @@ class _BMIScreenState extends State<BMIScreen> {
               padding: const EdgeInsetsDirectional.symmetric(horizontal: 20.0),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadiusDirectional.circular(5.0),
-                  color: Colors.grey[300]
-                ),
+                    borderRadius: BorderRadiusDirectional.circular(5.0),
+                    color: Colors.grey[300]),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                  [
+                  children: [
                     Text(
                       'HEIGHT',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25.0
-                      ),
+                          fontWeight: FontWeight.bold, fontSize: 25.0),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       textBaseline: TextBaseline.alphabetic,
-                      children:
-                      [
+                      children: [
                         Text(
                           '${height.round()}',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 40.0
-                          ),
+                              fontWeight: FontWeight.bold, fontSize: 40.0),
                         ),
                         Text(
                           'cm',
-                          style: TextStyle(
-                            fontSize: 20.0
-                          ),
+                          style: TextStyle(fontSize: 20.0),
                         ),
                       ],
                     ),
@@ -163,12 +155,11 @@ class _BMIScreenState extends State<BMIScreen> {
                         value: height,
                         max: 300,
                         min: 80,
-                        onChanged: (value){
+                        onChanged: (value) {
                           setState(() {
                             height = value;
                           });
-                        }
-                    ),
+                        }),
                   ],
                 ),
               ),
@@ -178,63 +169,51 @@ class _BMIScreenState extends State<BMIScreen> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
-                children:
-                [
+                children: [
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadiusDirectional.circular(5.0),
-                          color: Colors.grey[300]
-                      ),
+                          color: Colors.grey[300]),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children:
-                          [
+                          children: [
                             Text(
                               'Age',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25.0
-                              ),
+                                  fontWeight: FontWeight.bold, fontSize: 25.0),
                             ),
                             Text(
                               '$age',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 40.0
-                              ),
+                                  fontWeight: FontWeight.bold, fontSize: 40.0),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children:
-                              [
+                              children: [
                                 FloatingActionButton(
-
-                                  onPressed: (){
+                                  onPressed: () {
                                     setState(() {
                                       age++;
                                     });
                                   },
                                   mini: true,
-                                  child: Icon(
-                                      Icons.add
-                                  ),
+                                  child: Icon(Icons.add),
                                 ),
-                                SizedBox(width: 10.0,),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
                                 FloatingActionButton(
-
-                                  onPressed: (){
+                                  onPressed: () {
                                     setState(() {
                                       age--;
                                     });
                                   },
                                   mini: true,
-                                  child: Icon(
-                                      Icons.remove
-                                  ),
+                                  child: Icon(Icons.remove),
                                 )
                               ],
                             ),
@@ -243,61 +222,53 @@ class _BMIScreenState extends State<BMIScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 20.0,),
+                  SizedBox(
+                    width: 20.0,
+                  ),
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadiusDirectional.circular(5.0),
-                          color: Colors.grey[300]
-                      ),
+                          color: Colors.grey[300]),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children:
-                          [
+                          children: [
                             Text(
                               'Weight',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25.0
-                              ),
+                                  fontWeight: FontWeight.bold, fontSize: 25.0),
                             ),
                             Text(
                               '$weight',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 40.0
-                              ),
+                                  fontWeight: FontWeight.bold, fontSize: 40.0),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children:
-                              [
+                              children: [
                                 FloatingActionButton(
-
-                                  onPressed: (){
+                                  onPressed: () {
                                     setState(() {
                                       weight++;
                                     });
                                   },
                                   mini: true,
-                                  child: Icon(
-                                      Icons.add
-                                  ),
+                                  child: Icon(Icons.add),
                                 ),
-                                SizedBox(width: 10.0,),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
                                 FloatingActionButton(
-                                  onPressed: (){
+                                  onPressed: () {
                                     setState(() {
                                       weight--;
                                     });
                                   },
                                   mini: true,
-                                  child: Icon(
-                                      Icons.remove
-                                  ),
+                                  child: Icon(Icons.remove),
                                 )
                               ],
                             ),
@@ -306,7 +277,6 @@ class _BMIScreenState extends State<BMIScreen> {
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -315,24 +285,22 @@ class _BMIScreenState extends State<BMIScreen> {
             width: double.infinity,
             color: Colors.blue,
             child: MaterialButton(
-              onPressed: (){
-                double result = weight/ pow(height/180,2);
+              onPressed: () {
+                double result = weight / pow(height / 180, 2);
                 print(result.round());
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context)=>BmiResultScreen(
-                      age: age,
-                      ismale: ismale,
-                      result: result.round(),
-                    )
-                ),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BmiResultScreen(
+                            age: age,
+                            ismale: ismale,
+                            result: result.round(),
+                          )),
                 );
               },
               child: Text(
                 'Calculate',
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white
-                ),
+                style: TextStyle(fontSize: 25.0, color: Colors.white),
               ),
             ),
           ),

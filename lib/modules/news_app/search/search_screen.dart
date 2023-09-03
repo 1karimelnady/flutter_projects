@@ -20,6 +20,11 @@ class SearchScreen extends StatelessWidget {
             child: Column(
               children: [
                 defaultformfield(
+                  validator: (value){
+                    if(value!.isEmpty){
+                      return "Search not be empty";
+                    }
+                  },
                     textEditingController: controller,
                     textInputType: TextInputType.text,
                     label: 'search',
