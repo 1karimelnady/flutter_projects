@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/shared/cubit/cubit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../modules/news_app/web_view/web_view_screen.dart';
 import '../../modules/shop_app/shop_app_login/shop_login_screen.dart';
@@ -246,3 +247,33 @@ Widget defalutTextButton({
     ),
   ),
 );
+
+void showToast({
+  required String text,
+  required ToastStates state
+})=>Fluttertoast.showToast(
+    msg: text,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 1,
+    backgroundColor: chooseToastColor(state),
+    textColor: Colors.white,
+    fontSize: 16.0
+);
+enum ToastStates {SUCCESS,ERROR,WARNING}
+
+Color chooseToastColor(ToastStates stata){
+  Color color;
+  switch(stata){
+    case ToastStates.SUCCESS :
+      color = Colors.green;
+      break;
+    case ToastStates.ERROR :
+      color = Colors.red;
+      break;
+    case ToastStates.WARNING :
+      color = Colors.amber;
+      break;
+  }
+  return color;
+}

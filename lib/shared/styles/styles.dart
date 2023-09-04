@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'colors/colors.dart';
 
 ThemeData darktheme = ThemeData(
+  primarySwatch: primarycolor,
   textTheme: const TextTheme(
     bodyLarge: TextStyle(
         fontWeight: FontWeight.w500, fontSize: 18.0, color: Colors.white),
@@ -20,13 +21,14 @@ ThemeData darktheme = ThemeData(
     backgroundColor: Color(0xff333739),
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    selectedItemColor: Colors.deepOrange,
+    selectedItemColor: primarycolor,
     unselectedItemColor: Colors.grey,
     backgroundColor: Color(0xff333739),
     type: BottomNavigationBarType.fixed,
   ),
 );
 ThemeData lighttheme = ThemeData(
+    primarySwatch: primarycolor,
     textTheme: const TextTheme(
       bodyLarge: TextStyle(
           fontWeight: FontWeight.w500, fontSize: 18.0, color: Colors.black),
@@ -43,7 +45,7 @@ ThemeData lighttheme = ThemeData(
       backgroundColor: Colors.white,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedItemColor: Colors.deepOrange,
+      selectedItemColor: primarycolor,
       unselectedItemColor: Colors.grey,
       backgroundColor: Colors.white,
       type: BottomNavigationBarType.fixed,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/modules/shop_app/shop_app_login/shop_login_screen.dart';
+import 'package:flutter_project/shared/network/local/cache_helper.dart';
 import 'package:flutter_project/shared/styles/colors/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../../shared/components/components.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -29,17 +29,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   ];
 
   var pageController = PageController();
-
   bool isLast = false;
-
+  void onBoarding(){
+    CacheHelper.saveData(key: 'onBoarding', value: true,).then((value){
+      if(value){
+        navigateFinish(context, ShopLoginScreen());
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          defalutTextButton(text: 'Skip', function: () {
-            navigateFinish(context, ShopLoginScreen());
-          })
+          defalutTextButton(
+        text: 'Skip',
+        function: onBoarding
+          )
         ],
       ),
       body: Padding(
@@ -82,7 +88,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   backgroundColor: primarycolor,
                   onPressed: () {
                     if(isLast){
-                      navigateFinish(context, ShopLoginScreen());
+                      onBoarding();
                     }else {
                       pageController.nextPage(
                           duration: const Duration(milliseconds: 750),

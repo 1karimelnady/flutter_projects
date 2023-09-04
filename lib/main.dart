@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project/help.dart';
 import 'package:flutter_project/home.dart';
+import 'package:flutter_project/layouts/shop_app/cubit/cubit.dart';
+import 'package:flutter_project/layouts/shop_app/shop_layout.dart';
+import 'package:flutter_project/modules/shop_app/shop_app_login/shop_login_screen.dart';
 import 'package:flutter_project/shared/bloc_observer.dart';
+import 'package:flutter_project/shared/components/constants.dart';
 import 'package:flutter_project/shared/cubit/cubit.dart';
 import 'package:flutter_project/shared/cubit/states.dart';
 import 'package:flutter_project/shared/network/local/cache_helper.dart';
@@ -21,15 +25,29 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
-
-  bool? isDark = CacheHelper.getData(key: 'isDark');
-
-  runApp(MyApp(isDark!));
+  Widget? widget;
+  dynamic? isDark = CacheHelper.getData(key: 'isDark');
+  dynamic? onBoarding = CacheHelper.getData(key: 'onBoarding');
+    token = CacheHelper.getData(key: 'token');
+  if(onBoarding!=null){
+    if(token!=null){
+      widget = ShopLayout();
+    }else {
+      widget = ShopLoginScreen();
+    }
+  }else {
+    widget = OnBoardingScreen();
+  }
+  runApp(MyApp(
+    isDark,
+    widget,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  final bool isDark;
-  MyApp(this.isDark);
+  final dynamic isDark;
+  final dynamic startWidget;
+  MyApp(this.isDark, this.startWidget);
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -43,7 +61,11 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => AppCubit()
               ..changeMode(
                 fromshared: isDark,
-              ))
+              )
+        ),
+        BlocProvider(
+            create: (BuildContext context) => ShopCubit()..getHomeData()
+        )
       ],
       child: BlocConsumer<AppCubit, AppStates>(
         builder: (BuildContext context, state) {
@@ -51,8 +73,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: darktheme,
             darkTheme: lighttheme,
-            themeMode:
-                AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
             home: OnBoardingScreen(),
             routes: {
               "home": (context) => HomeScreens(),

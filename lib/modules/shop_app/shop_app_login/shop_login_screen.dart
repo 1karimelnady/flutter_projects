@@ -1,23 +1,45 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project/layouts/shop_app/shop_layout.dart';
 import 'package:flutter_project/modules/shop_app/shop_app_login/cubit/cubit.dart';
 import 'package:flutter_project/modules/shop_app/shop_app_login/cubit/states.dart';
 import 'package:flutter_project/shared/components/components.dart';
+import 'package:flutter_project/shared/network/local/cache_helper.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../register_screen/register_screen.dart';
 
 class ShopLoginScreen extends StatelessWidget {
-   ShopLoginScreen({super.key});
+  ShopLoginScreen({super.key});
   var emailController = TextEditingController();
-   var passwordController = TextEditingController();
-   var formKey = GlobalKey<FormState>();
+  var passwordController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return  BlocProvider(
       create: (BuildContext context)=>ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit,ShopLoginStates>(
-        listener: (context,state){},
+        listener: (context,state){
+          if(state is ShopLoginSuccessStates){
+            if(state.loginModel.status!){
+              print(state.loginModel.data?.token);
+              print(state.loginModel.message);
+
+              CacheHelper.saveData(key: 'token', value: state.loginModel.data?.token).then((value){
+                if(value){
+                  navigateFinish(context, ShopLayout());
+                }
+              });
+            }else {
+              print(state.loginModel.message);
+              showToast(
+                  text:state.loginModel.message!,
+                  state: ToastStates.ERROR
+              );
+            }
+          }
+        },
         builder: (context,state){
           return Scaffold(
             appBar: AppBar(),
