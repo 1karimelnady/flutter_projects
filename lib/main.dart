@@ -28,16 +28,16 @@ void main() async {
   Widget? widget;
   dynamic? isDark = CacheHelper.getData(key: 'isDark');
   dynamic? onBoarding = CacheHelper.getData(key: 'onBoarding');
-    token = CacheHelper.getData(key: 'token');
-  if(onBoarding!=null){
-    if(token!=null){
-      widget = ShopLayout();
-    }else {
-      widget = ShopLoginScreen();
-    }
-  }else {
-    widget = OnBoardingScreen();
-  }
+     // token = CacheHelper.getData(key: 'token');
+  // if(onBoarding!=null){
+  //   if(token!=null){
+  //     widget = ShopLayout();
+  //   }else {
+  //     widget = ShopLoginScreen();
+  //   }
+  // }else {
+  //   widget = OnBoardingScreen();
+  // }
   runApp(MyApp(
     isDark,
     widget,
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
               )
         ),
         BlocProvider(
-            create: (BuildContext context) => ShopCubit()..getHomeData()
+            create: (BuildContext context) => ShopCubit()..getHomeData()..getCategories()..getFavorites()..getUserData()
         )
       ],
       child: BlocConsumer<AppCubit, AppStates>(

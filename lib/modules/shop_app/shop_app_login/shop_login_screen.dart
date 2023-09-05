@@ -5,6 +5,7 @@ import 'package:flutter_project/layouts/shop_app/shop_layout.dart';
 import 'package:flutter_project/modules/shop_app/shop_app_login/cubit/cubit.dart';
 import 'package:flutter_project/modules/shop_app/shop_app_login/cubit/states.dart';
 import 'package:flutter_project/shared/components/components.dart';
+import 'package:flutter_project/shared/components/constants.dart';
 import 'package:flutter_project/shared/network/local/cache_helper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -28,6 +29,7 @@ class ShopLoginScreen extends StatelessWidget {
 
               CacheHelper.saveData(key: 'token', value: state.loginModel.data?.token).then((value){
                 if(value){
+                  token = state.loginModel.data!.token!;
                   navigateFinish(context, ShopLayout());
                 }
               });

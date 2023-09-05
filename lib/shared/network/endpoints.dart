@@ -1,3 +1,9 @@
+const LOGIN = 'login';
 
- const LOGIN = 'login';
- const Home = 'home';
+const Home = 'home';
+
+const Get_categories = 'categories';
+
+const changeFavorite = 'favorites';
+
+const Profile = 'profile';
