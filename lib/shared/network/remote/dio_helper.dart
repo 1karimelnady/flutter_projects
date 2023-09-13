@@ -19,7 +19,7 @@ class DioHelper {
     dio?.options.headers = {
       'Content-Type': 'application/json',
       'lang': lang,
-      'Authorization': token ?? '',
+      'Authorization': token,
     };
     return await dio!.get(url, queryParameters: query);
   }
@@ -37,5 +37,20 @@ class DioHelper {
       'Authorization': token ?? '',
     };
     return await dio!.post(url, queryParameters: query, data: data);
+  }
+
+  static Future<Response> putData({
+    String lang = 'en',
+    String? token,
+    required String url,
+    Map<String, dynamic>? query,
+    required Map<String, dynamic> data,
+  }) async {
+    dio?.options.headers = {
+      'Content-Type': 'application/json',
+      'lang': lang,
+      'Authorization': token ?? '',
+    };
+    return await dio!.put(url, queryParameters: query, data: data);
   }
 }

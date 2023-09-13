@@ -30,23 +30,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   var pageController = PageController();
   bool isLast = false;
-  void onBoarding(){
-    CacheHelper.saveData(key: 'onBoarding', value: true,).then((value){
-      if(value){
+  void onBoarding() {
+    CacheHelper.saveData(
+      key: 'onBoarding',
+      value: true,
+    ).then((value) {
+      if (value) {
         navigateFinish(context, ShopLoginScreen());
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          defalutTextButton(
-        text: 'Skip',
-        function: onBoarding
-          )
-        ],
+        actions: [defalutTextButton(text: 'Skip', function: onBoarding)],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -76,7 +75,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 SmoothPageIndicator(
                   controller: pageController,
                   count: boarding.length,
-                  effect: ExpandingDotsEffect(
+                  effect: const ExpandingDotsEffect(
                       activeDotColor: primarycolor,
                       dotHeight: 10,
                       dotWidth: 10,
@@ -87,20 +86,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 FloatingActionButton(
                   backgroundColor: primarycolor,
                   onPressed: () {
-                    if(isLast){
+                    if (isLast) {
                       onBoarding();
-                    }else {
+                    } else {
                       pageController.nextPage(
                           duration: const Duration(milliseconds: 750),
                           curve: Curves.fastLinearToSlowEaseIn);
                     }
-
                   },
                   child: const Icon(Icons.arrow_forward_ios),
                 )
               ],
             ),
-            SizedBox(height: 30.0,)
+            const SizedBox(
+              height: 30.0,
+            )
           ],
         ),
       ),
@@ -113,17 +113,17 @@ Widget boardingItem(OnBoarding model) => Column(
       children: [
         Expanded(
           child: Image(
-            image: AssetImage("${model.image}"),
+            image: AssetImage(model.image),
           ),
         ),
         const SizedBox(height: 30.0),
         Text(
-          '${model.title}',
+          model.title,
           style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 15.0),
         Text(
-          '${model.body}',
+          model.body,
           style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
         ),
         const SizedBox(

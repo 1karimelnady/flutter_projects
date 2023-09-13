@@ -18,31 +18,31 @@ class ShopLoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return  BlocProvider(
-      create: (BuildContext context)=>ShopLoginCubit(),
-      child: BlocConsumer<ShopLoginCubit,ShopLoginStates>(
-        listener: (context,state){
-          if(state is ShopLoginSuccessStates){
-            if(state.loginModel.status!){
+    return BlocProvider(
+      create: (BuildContext context) => ShopLoginCubit(),
+      child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
+        listener: (context, state) {
+          if (state is ShopLoginSuccessStates) {
+            if (state.loginModel.status!) {
               print(state.loginModel.data?.token);
               print(state.loginModel.message);
 
-              CacheHelper.saveData(key: 'token', value: state.loginModel.data?.token).then((value){
-                if(value){
+              CacheHelper.saveData(
+                      key: 'token', value: state.loginModel.data?.token)
+                  .then((value) {
+                if (value) {
                   token = state.loginModel.data!.token!;
-                  navigateFinish(context, ShopLayout());
+                  navigateFinish(context, const ShopLayout());
                 }
               });
-            }else {
+            } else {
               print(state.loginModel.message);
               showToast(
-                  text:state.loginModel.message!,
-                  state: ToastStates.ERROR
-              );
+                  text: state.loginModel.message!, state: ToastStates.ERROR);
             }
           }
         },
-        builder: (context,state){
+        builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),
             body: Center(
@@ -56,79 +56,95 @@ class ShopLoginScreen extends StatelessWidget {
                       children: [
                         Text(
                           'LOGIN',
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.black,fontWeight: FontWeight.bold),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(height: 15,),
+                        const SizedBox(
+                          height: 15,
+                        ),
                         Text(
                           'Login now to browse our hot offers ',
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey,fontWeight: FontWeight.bold),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(height: 30,),
+                        const SizedBox(
+                          height: 30,
+                        ),
                         defaultformfield(
                             textEditingController: emailController,
                             textInputType: TextInputType.emailAddress,
                             perfix: Icons.email_outlined,
                             label: 'Email Address',
-                            validator: (value){
-                              if(value!.isEmpty){
+                            validator: (value) {
+                              if (value!.isEmpty) {
                                 return 'Email must not be empty';
                               }
-                            }
+                            }),
+                        const SizedBox(
+                          height: 20,
                         ),
-                        const SizedBox(height: 20,),
-
                         defaultformfield(
                             textEditingController: passwordController,
                             textInputType: TextInputType.visiblePassword,
                             label: 'Password ',
-                            ispassword:ShopLoginCubit.get(context).ispassword,
+                            ispassword: ShopLoginCubit.get(context).ispassword,
                             suffix: ShopLoginCubit.get(context).suffix,
-                            suffixpressed: (){
+                            suffixpressed: () {
                               ShopLoginCubit.get(context).changeVisibilty();
                             },
                             perfix: Icons.lock_outline,
-                            validator: (value){
-                              if(value!.isEmpty){
+                            validator: (value) {
+                              if (value!.isEmpty) {
                                 return 'Password is too short';
                               }
-                            }
+                            }),
+                        const SizedBox(
+                          height: 30,
                         ),
-                        const SizedBox(height: 30,),
                         ConditionalBuilder(
                           condition: state is! ShopLoginLoadingStates,
-                          builder: (context)=>defaultbutton(
-                              function: (){
-                                if(formKey.currentState!.validate()){
+                          builder: (context) => defaultbutton(
+                              function: () {
+                                if (formKey.currentState!.validate()) {
                                   ShopLoginCubit.get(context).userLogin(
                                       email: emailController.text,
-                                      password: passwordController.text
-                                  );
+                                      password: passwordController.text);
                                 } else {
                                   print('error');
                                 }
-
                               },
                               text: 'LOGIN',
-                              background: Colors.blue
-                          ),
-                          fallback: (context)=>Center(child: CircularProgressIndicator()),
+                              background: Colors.blue),
+                          fallback: (context) =>
+                              const Center(child: CircularProgressIndicator()),
                         ),
-                        const SizedBox(height: 30,),
+                        const SizedBox(
+                          height: 30,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Don\'t have an account?',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            defalutTextButton(text: 'Register', function: (){
-                              navigateFinish(context, RegisterScreen());
-                            })
+                            defalutTextButton(
+                                text: 'Register',
+                                function: () {
+                                  navigateTo(context, ShopRegisterScreen());
+                                })
                           ],
                         ),
-
                       ],
                     ),
                   ),
@@ -137,7 +153,6 @@ class ShopLoginScreen extends StatelessWidget {
             ),
           );
         },
-
       ),
     );
   }

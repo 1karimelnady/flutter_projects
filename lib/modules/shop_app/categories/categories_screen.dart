@@ -12,46 +12,49 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit,ShopStates>(
-        builder: (context,state){
+    return BlocConsumer<ShopCubit, ShopStates>(
+        builder: (context, state) {
           return ConditionalBuilder(
-              condition: ShopCubit.get(context).categoriesModel!= null,
-              builder: (context)=> ListView.separated(
-                physics: BouncingScrollPhysics(),
-                  itemBuilder: (context,index)=>buildCategoriesItem(ShopCubit.get(context).categoriesModel!.data!.data[index]!),
-                  separatorBuilder: (context,index)=>myDivider(),
-                  itemCount:ShopCubit.get(context).categoriesModel!.data!.data.length
-              ),
-              fallback: (context)=>Center(child: CircularProgressIndicator())
-          );
+              condition: ShopCubit.get(context).categoriesModel != null,
+              builder: (context) => ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) => buildCategoriesItem(
+                      ShopCubit.get(context)
+                          .categoriesModel!
+                          .data!
+                          .data[index]),
+                  separatorBuilder: (context, index) => myDivider(),
+                  itemCount: ShopCubit.get(context)
+                      .categoriesModel!
+                      .data!
+                      .data
+                      .length),
+              fallback: (context) =>
+                  const Center(child: CircularProgressIndicator()));
         },
-        listener: (context,state){}
-    ) ;
+        listener: (context, state) {});
   }
 
-  Widget buildCategoriesItem(DataModel model)=>Padding(
-    padding: const EdgeInsets.all(20.0),
-    child: Row(
-      children: [
-        Image(
-          width: 90,
-          height: 90,
-          fit: BoxFit.cover,
-          image: NetworkImage('${model.image}'),
+  Widget buildCategoriesItem(DataModel model) => Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            Image(
+              width: 90,
+              height: 90,
+              fit: BoxFit.cover,
+              image: NetworkImage('${model.image}'),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Text(
+              '${model.name}',
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+            ),
+            const Spacer(),
+            const Icon(Icons.arrow_forward_ios),
+          ],
         ),
-        SizedBox(width: 20,),
-        Text(
-          '${model.name}',
-          style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 20
-          ),
-        ),
-        Spacer(),
-        Icon(
-            Icons.arrow_forward_ios
-        ),
-      ],
-    ),
-  );
+      );
 }

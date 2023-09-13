@@ -5,9 +5,14 @@ import 'colors/colors.dart';
 
 ThemeData darktheme = ThemeData(
   primarySwatch: primarycolor,
-  textTheme: const TextTheme(
-    bodyLarge: TextStyle(
-        fontWeight: FontWeight.w500, fontSize: 18.0, color: Colors.white),
+  textTheme: TextTheme(
+    bodyLarge: const TextStyle(
+        fontFamily: 'Jannah',
+        fontWeight: FontWeight.w500,
+        fontSize: 18.0,
+        color: Colors.white),
+    bodyMedium: TextStyle(
+        fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
   ),
   scaffoldBackgroundColor: const Color(0xff333739),
   appBarTheme: const AppBarTheme(
@@ -29,9 +34,14 @@ ThemeData darktheme = ThemeData(
 );
 ThemeData lighttheme = ThemeData(
     primarySwatch: primarycolor,
-    textTheme: const TextTheme(
+    textTheme: TextTheme(
       bodyLarge: TextStyle(
-          fontWeight: FontWeight.w500, fontSize: 18.0, color: Colors.black),
+          fontFamily: 'Jannah',
+          fontWeight: FontWeight.w500,
+          fontSize: 18.0,
+          color: Colors.black),
+      bodyMedium: TextStyle(
+          fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),
     ),
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: const AppBarTheme(

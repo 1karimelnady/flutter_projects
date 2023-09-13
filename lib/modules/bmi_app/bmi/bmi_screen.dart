@@ -1,10 +1,13 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../bmi_result/bmi_result_screen.dart';
 
 class BMIScreen extends StatefulWidget {
+  const BMIScreen({super.key});
+
   @override
   State<BMIScreen> createState() => _BMIScreenState();
 }
@@ -25,7 +28,7 @@ class _BMIScreenState extends State<BMIScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BMI Calculator'),
+        title: const Text('BMI Calculator'),
       ),
       body: Column(
         children: [
@@ -49,8 +52,8 @@ class _BMIScreenState extends State<BMIScreen> {
                               borderRadius:
                                   BorderRadiusDirectional.circular(5.0),
                               color: ismale ? Colors.blue : Colors.grey[300]),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
+                          child: const Padding(
+                            padding: EdgeInsets.all(20.0),
                             child: Column(
                               children: [
                                 Image(
@@ -73,7 +76,7 @@ class _BMIScreenState extends State<BMIScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20.0,
                     ),
                     Expanded(
@@ -89,8 +92,8 @@ class _BMIScreenState extends State<BMIScreen> {
                               borderRadius:
                                   BorderRadiusDirectional.circular(5.0),
                               color: !ismale ? Colors.blue : Colors.grey[300]),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
+                          child: const Padding(
+                            padding: EdgeInsets.all(20.0),
                             child: Column(
                               children: [
                                 Image(
@@ -129,7 +132,7 @@ class _BMIScreenState extends State<BMIScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'HEIGHT',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 25.0),
@@ -142,10 +145,10 @@ class _BMIScreenState extends State<BMIScreen> {
                         Text(
                           '${height.round()}',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 40.0),
                         ),
-                        Text(
+                        const Text(
                           'cm',
                           style: TextStyle(fontSize: 20.0),
                         ),
@@ -180,7 +183,7 @@ class _BMIScreenState extends State<BMIScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Age',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 25.0),
@@ -188,7 +191,7 @@ class _BMIScreenState extends State<BMIScreen> {
                             Text(
                               '$age',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 40.0),
                             ),
                             Row(
@@ -201,9 +204,9 @@ class _BMIScreenState extends State<BMIScreen> {
                                     });
                                   },
                                   mini: true,
-                                  child: Icon(Icons.add),
+                                  child: const Icon(Icons.add),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10.0,
                                 ),
                                 FloatingActionButton(
@@ -213,7 +216,7 @@ class _BMIScreenState extends State<BMIScreen> {
                                     });
                                   },
                                   mini: true,
-                                  child: Icon(Icons.remove),
+                                  child: const Icon(Icons.remove),
                                 )
                               ],
                             ),
@@ -222,7 +225,7 @@ class _BMIScreenState extends State<BMIScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20.0,
                   ),
                   Expanded(
@@ -235,7 +238,7 @@ class _BMIScreenState extends State<BMIScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Weight',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 25.0),
@@ -243,7 +246,7 @@ class _BMIScreenState extends State<BMIScreen> {
                             Text(
                               '$weight',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 40.0),
                             ),
                             Row(
@@ -256,9 +259,9 @@ class _BMIScreenState extends State<BMIScreen> {
                                     });
                                   },
                                   mini: true,
-                                  child: Icon(Icons.add),
+                                  child: const Icon(Icons.add),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10.0,
                                 ),
                                 FloatingActionButton(
@@ -268,7 +271,7 @@ class _BMIScreenState extends State<BMIScreen> {
                                     });
                                   },
                                   mini: true,
-                                  child: Icon(Icons.remove),
+                                  child: const Icon(Icons.remove),
                                 )
                               ],
                             ),
@@ -287,7 +290,9 @@ class _BMIScreenState extends State<BMIScreen> {
             child: MaterialButton(
               onPressed: () {
                 double result = weight / pow(height / 180, 2);
-                print(result.round());
+                if (kDebugMode) {
+                  print(result.round());
+                }
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -298,7 +303,7 @@ class _BMIScreenState extends State<BMIScreen> {
                           )),
                 );
               },
-              child: Text(
+              child: const Text(
                 'Calculate',
                 style: TextStyle(fontSize: 25.0, color: Colors.white),
               ),
